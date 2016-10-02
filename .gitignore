@@ -1,0 +1,17 @@
+# Compiled Files #
+##################
+bin/
+
+# Libraries #
+#############
+lwjgl/
+joml/
+
+# Other #
+#########
+.settings/
+
+# Eclipse Projects #
+####################
+.project
+.classpath
