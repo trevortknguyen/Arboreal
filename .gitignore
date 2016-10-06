@@ -1,17 +1,9 @@
-# Compiled Files #
-##################
-bin/
-
-# Libraries #
-#############
-lwjgl/
-joml/
-
-# Other #
-#########
+# Eclipse #
+###########
 .settings/
-
-# Eclipse Projects #
-####################
 .project
 .classpath
+
+# Maven #
+#########
+target/

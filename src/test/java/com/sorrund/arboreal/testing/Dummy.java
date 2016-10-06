@@ -22,7 +22,6 @@ public class Dummy implements GameLogic {
 		models = new Model[1];
 	}
 	
-	@Override
 	public void init(Window window) throws Exception {
 		renderer.init(window);
 
@@ -74,7 +73,6 @@ public class Dummy implements GameLogic {
 	    models[0] = new Model(new Mesh(positions, colors, indices));
 	}
 
-	@Override
 	public void input(Window window) {
 		if (window.isKeyPressed(GLFW_KEY_UP)) {
 			direction = 1;
@@ -134,7 +132,6 @@ public class Dummy implements GameLogic {
 		}
 	}
 
-	@Override
 	public void update(float interval) {
 		color += direction * 0.01f;
 		if (color > 1) { 
@@ -152,14 +149,12 @@ public class Dummy implements GameLogic {
 		models[0].setRotation(xRot, yRot, zRot);
 	}
 
-	@Override
 	public void render(Window window) {
 		window.setClearColor(color, 0.5f, 0.5f, 0.0f);
 		renderer.render(window);
 		renderer.render(models);
 	}
 
-	@Override
 	public void cleanup() {
 		renderer.cleanup();
 		
