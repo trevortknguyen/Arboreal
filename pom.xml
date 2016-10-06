@@ -34,7 +34,7 @@
 				</os>
 			</activation>
 			<properties>
-				<lwjgl.natives>natives-macos</lwjgl.natives>
+				<lwjgl.natives>natives-osx</lwjgl.natives>
 			</properties>
 		</profile>
 		<profile>
