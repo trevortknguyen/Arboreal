@@ -1,8 +1,10 @@
 package com.sorrund.arboreal.testing;
 
-import com.sorrund.arboreal.engine.*;
+import com.sorrund.arboreal.engine.GameEngine;
+import com.sorrund.arboreal.engine.GameLogic;
 
-public class Test {
+
+public class Testing {
 	public static void main(String[] args) {
 		try {
 			boolean vSync = true;
