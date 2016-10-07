@@ -1,17 +1,21 @@
 package com.sorrund.arboreal.testing;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glEnable;
 
 import com.sorrund.arboreal.engine.*;
 import com.sorrund.arboreal.engine.graph.Mesh;
 
 import org.joml.Vector3f;
+import org.lwjgl.opengl.GL;
 
 public class Dummy implements GameLogic {
 
-	private int direction = 0;
+	private int debug_direction = 0;
 	
-	private float color = 0.0f;
+	private float debug_color = 0.0f;
 	
 	private final Renderer renderer;
 	
@@ -19,12 +23,12 @@ public class Dummy implements GameLogic {
 	
 	public Dummy() {
 		renderer = new Renderer();
-		models = new Model[1];
 	}
 	
-	public void init(Window window) throws Exception {
-		renderer.init(window);
+	public void debugStuff() {
 
+		models = new Model[1];
+		
 		float[] positions = new float[] {
 			    // VO
 			    -0.5f,  0.5f,  0.5f,
@@ -72,14 +76,36 @@ public class Dummy implements GameLogic {
 	    
 	    models[0] = new Model(new Mesh(positions, colors, indices));
 	}
+	
+	/**
+	 * Binds the OpenGL context to the parameter window.
+	 */
+	public void init(Window window) throws Exception {
+		if (!window.isInitialized()) {
+			throw new IllegalStateException("Window has not been initialized.");
+		}
+		
+		window.makeContextCurrent();
+
+		GL.createCapabilities();
+
+		
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glEnable(GL_DEPTH_TEST);
+		
+		renderer.init(window);
+		
+		// Debug stuff
+		debugStuff();
+	}
 
 	public void input(Window window) {
 		if (window.isKeyPressed(GLFW_KEY_UP)) {
-			direction = 1;
+			debug_direction = 1;
 		} else if (window.isKeyPressed(GLFW_KEY_DOWN)) {
-			direction = -1;
+			debug_direction = -1;
 		} else {
-			direction = 0;
+			debug_direction = 0;
 		}
 		
 		if (window.isKeyPressed(GLFW_KEY_X)) {
@@ -133,11 +159,11 @@ public class Dummy implements GameLogic {
 	}
 
 	public void update(float interval) {
-		color += direction * 0.01f;
-		if (color > 1) { 
-			color = 1.0f;
-		} else if (color < 0) {
-			color = 0.0f;
+		debug_color += debug_direction * 0.01f;
+		if (debug_color > 1) { 
+			debug_color = 1.0f;
+		} else if (debug_color < 0) {
+			debug_color = 0.0f;
 		}
 		
 		Vector3f rotationV = models[0].getRotation();
@@ -150,7 +176,7 @@ public class Dummy implements GameLogic {
 	}
 
 	public void render(Window window) {
-		window.setClearColor(color, 0.5f, 0.5f, 0.0f);
+		window.setClearColor(debug_color, 0.5f, 0.5f, 0.0f);
 		renderer.render(window);
 		renderer.render(models);
 	}
